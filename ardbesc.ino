@@ -1,30 +1,30 @@
-double ch1_pin = 3;  //PWM pin
-double ch2_pin = 5;  //PWM pin
+double ch1_pin = 5;  //PWM pin
+double ch2_pin = 3;  //PWM pin
 
 //Right motor driver pins
-int R_EN_right = 2; 
-int L_EN_right = 4;
-int R_PWM_right = 6; //PWM pin
-int L_PWM_right = 9; //PWM pin
+int R_EN_right = 7; 
+int L_EN_right = 8;
+int R_PWM_right = 10; //PWM pin
+int L_PWM_right = 11; //PWM pin
 
 //Left motor driver pins
-int R_EN_left = 7; 
-int L_EN_left = 8;
-int R_PWM_left = 10; //PWM pin
-int L_PWM_left = 11; //PWM pin
+int R_EN_left = 2; 
+int L_EN_left = 4;
+int R_PWM_left = 6; //PWM pin
+int L_PWM_left = 9; //PWM pin
 
 //FWD
 int Ch1_start_Fwd = 1540;
-int Ch1_End_Fwd = 1985;
+int Ch1_End_Fwd = 1987;
 //BACK
 int Ch1_start_Bac = 1470;
-int Ch1_End_Bac = 980;
+int Ch1_End_Bac = 994;
 //RIGHT
 int Ch2_start_Fwd = 1540;
-int Ch2_End_Fwd = 1980;
+int Ch2_End_Fwd = 1987;
 //LEFT
 int Ch2_start_Bac = 1470;
-int Ch2_End_Bac = 980;
+int Ch2_End_Bac = 994;
 
 void setup()
 {
@@ -47,9 +47,9 @@ void loop()
 double ch1 = pulseIn(3,HIGH);
 double ch2 = pulseIn(5,HIGH);
 
-/*Serial.println(ch1);
-Serial.print(",");
-Serial.println(ch2);*/
+Serial.println(ch1);
+//Serial.print("||");
+//Serial.print(ch2);
 
 
 //Speed mapping for F/B
@@ -80,17 +80,17 @@ else if(ch1>Ch1_start_Fwd)
 {    
 if(ch2>Ch2_start_Fwd)
 { 
-analogWrite(R_PWM_right,spdFwd/2);
-analogWrite(L_PWM_right,0);
-analogWrite(R_PWM_left,spdFwd);
-analogWrite(L_PWM_left,0); 
+analogWrite(R_PWM_right,0);
+analogWrite(L_PWM_right,spdRyt);
+analogWrite(R_PWM_left,spdRyt);
+analogWrite(L_PWM_left,0);
 }
 else if(ch2<Ch2_start_Bac)
 {
-analogWrite(R_PWM_right,spdFwd);
+analogWrite(R_PWM_right,spdLft);
 analogWrite(L_PWM_right,0);
-analogWrite(R_PWM_left,spdFwd/2);
-analogWrite(L_PWM_left,0);  
+analogWrite(R_PWM_left,0);
+analogWrite(L_PWM_left,spdLft);
   }
 else{
 analogWrite(R_PWM_right,spdFwd);
@@ -105,16 +105,16 @@ else if(ch1<Ch1_start_Bac)
   if(ch2>Ch2_start_Fwd)
 { 
 analogWrite(R_PWM_right,0);
-analogWrite(L_PWM_right,spdBac); 
-analogWrite(R_PWM_left,0);
-analogWrite(L_PWM_left,spdBac/2); 
+analogWrite(L_PWM_right,spdRyt);
+analogWrite(R_PWM_left,spdRyt);
+analogWrite(L_PWM_left,0);
 }
 else if(ch2<Ch2_start_Bac)
 {
-analogWrite(R_PWM_right,0);
-analogWrite(L_PWM_right,spdBac/2); 
+analogWrite(R_PWM_right,spdLft);
+analogWrite(L_PWM_right,0);
 analogWrite(R_PWM_left,0);
-analogWrite(L_PWM_left,spdBac);
+analogWrite(L_PWM_left,spdLft);
   }
 else{
 analogWrite(R_PWM_right,0);
@@ -145,4 +145,5 @@ analogWrite(R_PWM_right,0);
 analogWrite(L_PWM_right,0);
 analogWrite(R_PWM_left,0);
 analogWrite(L_PWM_left,0);
+}
 }
